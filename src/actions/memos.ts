@@ -2,7 +2,7 @@
 
 import { supabase } from '@/lib/supabase'
 import { Memo, MemoFormData } from '@/types/memo'
-import { MemoRow } from '@/types/database'
+import { MemoRow, MemoInsert } from '@/types/database'
 import { v4 as uuidv4 } from 'uuid'
 
 // DB Row → Memo 인터페이스 변환 (snake_case → camelCase)
@@ -54,7 +54,7 @@ export async function getMemoById(id: string): Promise<Memo | null> {
 // 메모 생성
 export async function createMemo(formData: MemoFormData): Promise<Memo> {
   const now = new Date().toISOString()
-  const newMemo = {
+  const newMemo: MemoInsert = {
     id: uuidv4(),
     title: formData.title,
     content: formData.content,
@@ -193,7 +193,7 @@ export async function seedSampleMemos(): Promise<boolean> {
     return false
   }
 
-  const sampleMemos = [
+  const sampleMemos: MemoInsert[] = [
     {
       id: uuidv4(),
       title: '프로젝트 회의 준비',
